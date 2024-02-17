@@ -1,5 +1,6 @@
 # TODO tests are not yet completed
 version: 2.1
+setup: true
 
 orbs:
   cypress: cypress-io/cypress@3
