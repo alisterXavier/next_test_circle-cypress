@@ -13,10 +13,6 @@ jobs:
       - checkout
 
       - run:
-          name: install deps
-          command: "npm install"
-
-      - run:
           name: update apt
           command: apt-get update
 
@@ -24,9 +20,14 @@ jobs:
           name: install system deps
           command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
+      - run:
+          name: install deps
+          command: "cd ./my-app && npm install"
+
       - cypress/run-tests:
           start-command: npm run dev
           cypress-command: "npx wait-on@latest http://localhost:3000 && npx cypress run"
+          working-directory: ./my-app
 
       - store_artifacts:
           path: ./cypress/screenshots
