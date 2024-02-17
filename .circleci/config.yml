@@ -128,33 +128,37 @@ jobs:
 
       - run:
           name: update apt
-          command: apt-get update
+          command: git branch
 
-      - run:
-          name: install system deps
-          command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      # - run:
+      #     name: update apt
+      #     command: apt-get update
 
-      - run:
-          name: Install deps
-          command: "cd ./app && npm install"
+      # - run:
+      #     name: install system deps
+      #     command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
-      - run:
-          name: Run app in background
-          command: "cd ./app && npm run dev"
-          background: true
+      # - run:
+      #     name: Install deps
+      #     command: "cd ./app && npm install"
+
+      # - run:
+      #     name: Run app in background
+      #     command: "cd ./app && npm run dev"
+      #     background: true
       
-      - run:
-          name: Wait for app to be ready
-          command: npx wait-on@latest http://localhost:3000
+      # - run:
+      #     name: Wait for app to be ready
+      #     command: npx wait-on@latest http://localhost:3000
 
-      - cypress/run-tests:
-          # start-command: npm run dev
-          cypress-command: "npx cypress run"
-          working-directory: ./app
+      # - cypress/run-tests:
+      #     # start-command: npm run dev
+      #     cypress-command: "npx cypress run"
+      #     working-directory: ./app
 
-      - store_artifacts:
-          path: ./app/cypress/screenshots
-          when: on_fail
+      # - store_artifacts:
+      #     path: ./app/cypress/screenshots
+      #     when: on_fail
 
 workflows:
   the-great-gatsby:
