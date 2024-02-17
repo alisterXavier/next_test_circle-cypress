@@ -26,7 +26,7 @@
 #           - run:
 #               name: Frontend diff
 #               command: |
-#                 if git diff --quiet main..main2.0 -- ./app; then 
+#                 if git diff --quiet main..main-test-branch -- ./app; then 
 #                   echo "No changes in specified folder."
 #                 else 
 #                   echo "frontend" >> ./modules.txt
@@ -36,7 +36,7 @@
 #           - run:
 #               name: Server diff
 #               command: |
-#                 if git diff --quiet main..main2.0 -- ./server; then 
+#                 if git diff --quiet main..main-test-branch -- ./server; then 
 #                   echo "No changes in specified folder."
 #                 else 
 #                   echo "server" >> ./modules.txt
@@ -100,7 +100,7 @@
 #           filters:
 #             branches:
 #               only:
-#                 - main2.0
+#                 - main-test-branch
 
 
 
@@ -128,37 +128,33 @@ jobs:
 
       - run:
           name: update apt
-          command: git branch
+          command: apt-get update
 
-      # - run:
-      #     name: update apt
-      #     command: apt-get update
+      - run:
+          name: install system deps
+          command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
-      # - run:
-      #     name: install system deps
-      #     command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - run:
+          name: Install deps
+          command: "cd ./app && npm install"
 
-      # - run:
-      #     name: Install deps
-      #     command: "cd ./app && npm install"
-
-      # - run:
-      #     name: Run app in background
-      #     command: "cd ./app && npm run dev"
-      #     background: true
+      - run:
+          name: Run app in background
+          command: "cd ./app && npm run dev"
+          background: true
       
-      # - run:
-      #     name: Wait for app to be ready
-      #     command: npx wait-on@latest http://localhost:3000
+      - run:
+          name: Wait for app to be ready
+          command: npx wait-on@latest http://localhost:3000
 
-      # - cypress/run-tests:
-      #     # start-command: npm run dev
-      #     cypress-command: "npx cypress run"
-      #     working-directory: ./app
+      - cypress/run-tests:
+          # start-command: npm run dev
+          cypress-command: "npx cypress run"
+          working-directory: ./app
 
-      # - store_artifacts:
-      #     path: ./app/cypress/screenshots
-      #     when: on_fail
+      - store_artifacts:
+          path: ./app/cypress/screenshots
+          when: on_fail
 
 workflows:
   the-great-gatsby:

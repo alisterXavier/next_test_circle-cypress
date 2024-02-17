@@ -53,7 +53,7 @@ jobs:
 
       - run:
           name: Push to production branch
-          command: git push origin main2.0:main
+          command: git push origin main-test-branch:main
 
   deploy-to-vercel:
     docker:
@@ -96,4 +96,4 @@ workflows:
           filters:
             branches:
               only:
-                - main2.0
+                - main
