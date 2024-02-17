@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { fetchSession, fetchUser } from '@/shared/redux/authSlice';
 import { Toaster } from 'react-hot-toast';
 import { useSmallDeviceSize } from '@/shared/hooks/smallScreen';
-import { FooterSection } from './page';
+import { FooterSection } from './Components/footer/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 

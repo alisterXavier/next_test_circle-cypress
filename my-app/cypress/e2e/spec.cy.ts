@@ -1,3 +1,4 @@
+// import { components } from '@/shared/types/api';
 const CateArray = ['Home', 'Women', 'Kids', 'Electronics', 'Men'];
 const mockData = [
   {
@@ -568,7 +569,6 @@ const mockCart = {
   ],
   total: 0,
 };
-
 mockCart.total = mockCart.products.reduce((i, acc) => {
   return i + acc.price;
 }, 0);
@@ -578,8 +578,17 @@ describe('App flow', () => {
     cy.visit('http://localhost:3000/login');
   });
   
+
   // before(() => {
   //   cy.viewport(window.screen.width, window.screen.height);
+  //   cy.readFile('public/images/Logo.jpg', null).then((img) => {
+  //     cy.intercept('_next/image*', {
+  //       statusCode: 200,
+  //       headers: { 'Content-Type': 'image/png' },
+  //       body: img.buffer,
+  //     });
+  //   });
+
   //   cy.intercept('GET', 'http://localhost:5001/products/men?price=', {
   //     data: mockData,
   //   });
@@ -616,7 +625,9 @@ describe('App flow', () => {
   // describe('Sign in and perfrom user activities', () => {
   //   beforeEach(() => {
   //     cy.viewport(window.screen.width, window.screen.height);
-  //     cy.visit('http://localhost:3000/login');
+  //     cy.visit('http://localhost:3000/login', {
+  //       failOnStatusCode: false,
+  //     });
   //     cy.get('[data-cy="test-signIn-container"]').within(() => {
   //       cy.get('[data-cy="test-email-input"]').type('fidosa9512@bitofee.com');
   //       cy.get('[data-cy="test-password-input"]').type('123456789');
