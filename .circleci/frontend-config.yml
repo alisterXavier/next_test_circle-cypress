@@ -1,0 +1,99 @@
+# TODO tests are not yet completed
+version: 2.1
+setup: true
+
+orbs:
+  cypress: cypress-io/cypress@3
+
+jobs:
+  e2e-tests:
+    docker:
+      - image: node:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: update apt
+          command: apt-get update
+
+      - run:
+          name: install system deps
+          command: apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+      - run:
+          name: Install deps
+          command: "cd ./app && npm install"
+
+      - run:
+          name: Run app in background
+          command: "cd ./app && npm run dev"
+          background: true
+      
+      - run:
+          name: Wait for app to be ready
+          command: npx wait-on@latest http://localhost:3000
+
+      - cypress/run-tests:
+          # start-command: npm run dev
+          cypress-command: "npx cypress run"
+          working-directory: ./app
+
+      - store_artifacts:
+          path: ./app/cypress/screenshots
+          when: on_fail
+
+  publish-to-main-branch:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: "8d:81:26:dd:de:75:b3:c2:96:f2:c6:47:2f:8f:fb:8f"
+
+      - run:
+          name: Push to production branch
+          command: git push origin main2.0:main
+
+  deploy-to-vercel:
+    docker:
+      - image: node:latest
+        environment:
+          VERCEL_ORG_ID: $VERCEL_ORG_ID
+          VERCEL_PASSWORD_ID: $VERCEL_PASSWORD_ID
+    steps:
+      - checkout
+
+      - run:
+          name: Install vercel
+          command: npm i -g vercel@latest
+
+      - run:
+          name: PULL VERCEL ENVIRONMENT
+          command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+
+      - run:
+          name: BUILD PROJECT
+          command: vercel build --prod --token=$VERCEL_TOKEN
+
+      - run:
+          name: DEPLOY PROJECT
+          command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+workflows:
+  the-great-gatsby:
+    jobs:
+      # - publish-to-main-branch:
+      #     requires:
+      #       - e2e-tests
+
+      # - deploy-to-vercel:
+      #     requires:
+      #       - e2e-tests
+      #       - publish-to-main-branch
+
+      - e2e-tests:
+          filters:
+            branches:
+              only:
+                - main2.0

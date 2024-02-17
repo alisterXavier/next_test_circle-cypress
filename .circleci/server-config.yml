@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  create-docker-image-and-publish-to-dockerhub:
+    docker:
+      - image: docker:20.10.11
+    steps:
+      - setup_remote_docker
+      - checkout
+
+      - run:
+          name: Docker login
+          command: echo $DIGITAL_OCEAN_PASSWORD | docker login registry.digitalocean.com -u $DIGITAL_OCEAN_USERNAME --password-stdin
+
+      - run:
+          name: Build docker image
+          command: |
+            cd ./server
+            docker build ./ -t registry.digitalocean.com/server101/server:v1.0
+
+      - run:
+          name: Push to docker hub
+          command: docker push registry.digitalocean.com/server101/server:v1.0
+
+workflows:
+  the-great-depression:
+    jobs:
+      - create-docker-image-and-publish-to-dockerhub
