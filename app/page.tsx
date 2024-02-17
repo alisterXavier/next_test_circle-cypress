@@ -1,113 +1,207 @@
-import Image from "next/image";
+/* eslint-disable react/no-unescaped-entities */
+'use client';
+import { HeaderCarousel } from './Components/Mainsection/headerCarousel';
+import { MasonryComp } from './Components/Mainsection/masonrySection';
+import { Button, TextInput, Text } from '@mantine/core';
+import Image from 'next/image';
+import logo from '@/public/images/Logo.jpg';
+import {
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconBrandTwitter,
+} from '@tabler/icons-react';
+import Link from 'next/link';
+
+const MainSection = () => {
+  return (
+    <main className="main-section">
+      <div className="relative flex w-full h-screen">
+        <HeaderCarousel />
+      </div>
+      <div
+        style={{
+          padding: '10px',
+          background: 'var(--testColor)',
+          height: '100vh',
+        }}
+      >
+        <MasonryComp />
+      </div>
+    </main>
+  );
+};
+
+export const FooterSection = ({ enableDark }: { enableDark: boolean }) => (
+  <footer
+    className={`px-10 mt-14 w-[100vw] h-[50vh] ${
+      enableDark && 'bg-[var(--testColor)]'
+    }`}
+  >
+    <div className="flex h-[90%]">
+      <div className="left-section flex flex-col items-start justify-center w-[60%]">
+        <div className="w-full">
+          <h1 className={`uppercase text-[15px] ${enableDark && 'text-white'}`}>
+            Get exclusive offers and updates
+          </h1>
+          <div className="flex w-full">
+            <TextInput
+              variant="unstyled"
+              className={`login-input-field`}
+              style={{
+                borderBottom: `1px solid ${enableDark ? 'white' : 'black'}`,
+              }}
+              styles={{
+                input: {
+                  border: 'none',
+                  color: enableDark ? 'white' : 'black',
+                },
+              }}
+              w={400}
+              radius={0}
+              placeholder="ENTER YOUR EMAIL"
+            />
+            <Button
+              style={{
+                background: enableDark ? 'white' : 'black',
+                color: enableDark ? 'black' : 'white',
+              }}
+              radius={0}
+            >
+              Submit
+            </Button>
+          </div>
+        </div>
+        <div className={`flex w-full ${enableDark && 'text-[#e2ebf1]'}`}>
+          <div className={`w-[45%] !my-5`}>
+            <Text className="!text-[20px]">Customer Service</Text>
+            <ul>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/faqs"
+                >
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/contact"
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/return-policy"
+                >
+                  Return Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/discounted"
+                >
+                  Discounted Promo Codes
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="w-[45%] !my-5">
+            <Text className="!text-[20px]">About Us</Text>
+            <ul>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/about-us"
+                >
+                  PAO
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/careers"
+                >
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/privacy-policy"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className={`${
+                    enableDark && 'text-[#e2ebf1]'
+                  } text-[14px] hover:underline`}
+                  href="/terms-and-conditions"
+                >
+                  Terms and Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="right-section flex flex-col items-start justify-end w-[40%]">
+        <div className="social-medias flex">
+          <IconBrandInstagram size={30} color="var(--testColor)" />
+          <IconBrandFacebook size={30} color="var(--testColor)" />
+          <IconBrandTwitter size={30} color="var(--testColor)" />
+        </div>
+        <figure className="relative w-[300px] h-[200px]">
+          <Image
+            alt="logo"
+            src={logo}
+            fill
+            quality={100}
+            style={{
+              objectFit: 'contain',
+            }}
+            className="mix-blend-multiply"
+          />
+        </figure>
+      </div>
+    </div>
+    <div className="h-[10%]">
+      <Text className={`uppercase !text-xs ${enableDark && '!text-white'}`}>
+        copyrights©2024 all rights reserved see our{' '}
+        <Link
+          className={`${enableDark && 'text-[#e2ebf1]'} hover:underline`}
+          href="terms-of-use"
+        >
+          terms of use
+        </Link>
+      </Text>
+    </div>
+  </footer>
+);
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <MainSection />
+    </>
   );
 }
