@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: Products
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      responses:
+        "200":
+          description: "List of Products"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Products"
+  /product/{id}:
+    get:
+      responses:
+        "200":
+          description: "Get Product by id"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Products"
+  /customer/{id}:
+    get:
+      responses:
+        "200":
+          description: "update user"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Customers"
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: "More Updates"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Customers"
+      responses:
+        "200":
+          description: "Updated user"
+  /update-cart/{id}:
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: "More Updates"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Carts"
+      responses:
+        "200":
+          description: "Updated user"
+    delete:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "customerId"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: "Cart id"
+      responses:
+        "200":
+          description: "Updated user"
+  /get-cart/{id}:
+    get:
+      responses:
+        "200":
+          description: "Customer Cart"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Carts"
+  /get-orders/{id}:
+    get:
+      responses:
+        "200":
+          description: "Customer Orders"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Orders"
+
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+        productName:
+          type: string
+        description:
+          type: string
+        productImages:
+          type: array
+          items:
+            type: string
+        category:
+          type: string
+        price:
+          type: number
+        discount:
+          type: number
+    Customers:
+      type: object
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+        displayName:
+          type: string
+        cart:
+          type: array
+          items: string
+        orders:
+          type: array
+          items: string
+        email:
+          type: string
+    Carts:
+      type: object
+      properties:
+        id:
+          type: string
+        customerId:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: "#/components/schemas/Products"
+              quantity:
+                type: number
+        created_at:
+          type: string
+        total:
+          type: number
+    Orders:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                $ref: "#/components/schemas/Products"
+              quantity:
+                type: number
+        total:
+          type: number
+        created_at:
+          type: string
