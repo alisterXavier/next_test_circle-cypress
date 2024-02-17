@@ -1,0 +1,37 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {},
+  "extensions": {
+    "recommendations": [
+      "bradlc.vscode-tailwindcss",
+      "ahebrank.yaml2json",
+      "burkeholland.simple-react-snippets",
+      "ChakrounAnas.turbo-console-log",
+      "christian-kohler.npm-intellisense",
+      "DavidAnson.vscode-markdownlint",
+      "dbaeumer.vscode-eslint",
+      "donjayamanne.githistory",
+      "eamodio.gitlens",
+      "EditorConfig.EditorConfig",
+      "esbenp.prettier-vscode",
+      "EthanSK.restore-terminals",
+      "formulahendry.auto-rename-tag",
+      "GitHub.remotehub",
+      "GitHub.vscode-pull-request-github",
+      "icao.electron-vue",
+      "kuscamara.remove-unused-imports",
+      "mikestead.dotenv",
+      "ms-vscode.vscode-typescript-next",
+      "ms-vsliveshare.vsliveshare",
+      "mscolnick.export-typescript",
+      "redhat.vscode-xml",
+      "redhat.vscode-yaml",
+      "rvest.vs-code-prettier-eslint",
+      "syler.sass-indented",
+    ]
+  }
+}
