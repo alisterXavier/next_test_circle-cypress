@@ -35,7 +35,6 @@ jobs:
           command: npx wait-on@latest http://localhost:3000
 
       - cypress/run-tests:
-          # start-command: npm run dev
           cypress-command: "npx cypress run"
           working-directory: ./my-app
 
