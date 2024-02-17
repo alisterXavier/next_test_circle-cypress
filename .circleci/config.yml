@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: Install deps
-          command: "cd ./app && npm install"
+          command: "cd ./my-app && npm install"
 
       - run:
           name: Run app in background
